@@ -10,6 +10,7 @@ def derivada(x, h=0.00001):
 
 
 def newton_raphson(x, tolerancia):
+    print("Método newton-raphson\n")
     i = 0
     xk_next = 0
 
@@ -22,11 +23,12 @@ def newton_raphson(x, tolerancia):
         valor_derivada_f = derivada(x)
         xk_next = x - valor_f/valor_derivada_f
 
-        print(f"xk = {x:.10f}, f(xk) = {valor_f:.10f}, f'(xk) = {valor_derivada_f:.10f}, |xk+1 - xk| = {xk_next-x:.10f}")
+        # print(f"xk = {x:.10f}, f(xk) = {valor_f:.10f}, f'(xk) = {valor_derivada_f:.10f}, |xk+1 - xk| = {xk_next-x:.10f}")
 
         i += 1
 
-    print(f"xk final = {xk_next:.10f}")
+    print(f"Número de iterações: {i}, Valor encontrado = {xk_next:.10f}")
+    return xk_next
 
 
 newton_raphson(0.1, 0.0000001)
