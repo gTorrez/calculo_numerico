@@ -1,21 +1,20 @@
 from math import pi, cos
 
 
-def falsa_posicao(a, b, tolerancia=0.00000000001):
+def f(x):
+    return 2*x - cos(pi*x)
+
+
+def falsa_posicao(a, b, tolerancia=10**(-12)):
     print("Método falsa posição\n")
     xk_list = []
     i = 0
 
     while True:
-        # mudar funções
-        fa = 2*a - cos(pi*a)
-        fb = 2*b - cos(pi*b)
-
-        xk = ((a*fb)-(b*fa))/(fb-fa)
+        xk = ((a*f(b))-(b*f(a)))/(f(b)-f(a))
         # mudar função
-        fxk = 2*xk - cos(pi*xk)
 
-        if fa*fxk < 0:
+        if f(a)*f(xk) < 0:
             a = a
             b = xk
         else:
