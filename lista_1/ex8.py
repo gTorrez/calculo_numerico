@@ -7,41 +7,40 @@ k = 1.3806503 * (10**(-23))
 
 tol = 10**(-12)
 
-def biseccao(a, b, tolerancia=0.00000001):
+
+def f(x):
+    return (p + r * (n_molec/x)**2)*(x-n_molec*s)*(1/(k*n_molec*t))
+
+
+def biseccao(a, b, tolerancia=10**(-12)):
     i = 0
 
-    print("Método da bissecção")
+    print("Método da bissecção\n")
     while abs(b-a)/2 > tolerancia:
-        fa = (p + r * (n_molec/a)**2)*(a-n_molec*s)*(1/(k*n_molec*t))
-        fb = (p + r * (n_molec/b)**2)*(b-n_molec*s)*(1/(k*n_molec*t))
-        if fa*fb >= 0 and i == 0:
+        if f(a)*f(b) >= 0 and i == 0:
             print("Intervalo inválido pois não satisfaz f(a)f(b) < 0")
             return
 
         m = (a+b)/2
-        fm = (p + r * (n_molec/m)**2)*(m-n_molec*s)*(1/(k*n_molec*t))
 
-        if fa*fm < 0:
+        if f(a)*f(m) < 0:
+            a = a
             b = m
         else:
             a = m
+            b = b
 
         i += 1
 
     print(f"Número de iterações: {i}, Valor encontrado = {m:.10f}")
-    return m
 
 
-def derivada(x, h=0.00001):
-    # mudar função fx e fxh para calcular a derivada
-    fx = (p + r * (n_molec / x) ** 2) * (x - n_molec * s) * (1 / (k * n_molec * t))
-    fxh = (p + r * (n_molec / (x+h)) ** 2) * ((x+h) - n_molec * s) * (1 / (k * n_molec * t))
-    resultado = (fxh-fx)/h
-    return resultado
+def derivada_fx(x, h=0.00001):
+    return (f(x+h)-f(x))/h
 
 
-def newton_raphson(x, tolerancia):
-    print("Método newton-raphson")
+def newton_raphson(x, tolerancia=10**(-12)):
+    print("Método newton-raphson\n")
     i = 0
     xk_next = 0
 
@@ -49,10 +48,7 @@ def newton_raphson(x, tolerancia):
         if i != 0:
             x = xk_next
 
-        # mudar esta função
-        valor_f = (p + r * (n_molec / x) ** 2) * (x - n_molec * s) * (1 / (k * n_molec * t))
-        valor_derivada_f = derivada(x)
-        xk_next = x - valor_f/valor_derivada_f
+        xk_next = x - f(x)/derivada_fx(x)
 
         i += 1
 
@@ -60,21 +56,16 @@ def newton_raphson(x, tolerancia):
     return xk_next
 
 
-def falsa_posicao(a, b, tolerancia=0.00000000001):
-    print("Método falsa posição")
+def falsa_posicao(a, b, tolerancia=10**(-12)):
+    print("Método falsa posição\n")
     xk_list = []
     i = 0
 
     while True:
-        # mudar funções
-        fa = (p + r * (n_molec / a) ** 2) * (a - n_molec * s) * (1 / (k * n_molec * t))
-        fb = (p + r * (n_molec / b) ** 2) * (b - n_molec * s) * (1 / (k * n_molec * t))
-
-        xk = ((a*fb)-(b*fa))/(fb-fa)
+        xk = ((a * f(b)) - (b * f(a))) / (f(b) - f(a))
         # mudar função
-        fxk = (p + r * (n_molec / xk) ** 2) * (xk - n_molec * s) * (1 / (k * n_molec * t))
 
-        if fa*fxk < 0:
+        if f(a) * f(xk) < 0:
             a = a
             b = xk
         else:
