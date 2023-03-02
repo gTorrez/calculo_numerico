@@ -2,7 +2,6 @@ import sys
 eps = sys.float_info.epsilon
 tol = eps
 
-E = -5
 
 def f(x):
     return E + (1/x**3) + (1/x**2)
@@ -37,8 +36,11 @@ def falsa_posicao(a, b, tolerancia=10**(-12)):
     i = 0
 
     while True:
+        if f(a) * f(b) >= 0 and i == 0:
+            print("Intervalo inválido pois não satisfaz f(a)f(b) < 0")
+            return
         xk = ((a*f(b))-(b*f(a)))/(f(b)-f(a))
-        # mudar função
+
 
         if f(a)*f(xk) < 0:
             a = a
@@ -66,6 +68,7 @@ def derivada_fx(x, h=0.00001):
 
 def newton_raphson(x, tolerancia=10**(-12)):
     print("Método newton-raphson\n")
+
     i = 0
     xk_next = 0
 
@@ -81,9 +84,15 @@ def newton_raphson(x, tolerancia=10**(-12)):
     return xk_next
 
 
-biseccao(0.01, 1, tol)
-print("=="*30)
-falsa_posicao(0.01, 1, tol)
-print("=="*30)
-newton_raphson(1, tol)
-print("=="*30)
+
+for i in range(-5, -2):
+    E = i
+    print(f"Para E = {i}")
+    biseccao(0.5, 1, tol)
+    print("=="*30)
+    falsa_posicao(0.5, 1, tol)
+    print("=="*30)
+    newton_raphson(0.5, tol)
+    print("=="*30)
+    print("\n \n \n")
+
