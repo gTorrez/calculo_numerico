@@ -1,14 +1,17 @@
 import matplotlib.pyplot as plt
 
+# definindo condiçõess iniciais e tolerância
 x1 = 0
 x2 = 0
 x3 = 0
 tol = 10**(-2)
 
+# listas para armazenar resultados e erros
 resultados = [x1, x2, x3]
 n_variaveis = len(resultados)
 erros = []
 
+# listas para gráficos
 y_x1 = [x1]
 y_x2 = [x2]
 y_x3 = [x3]
@@ -28,6 +31,7 @@ while True:
     y_x2.append(x2)
     y_x3.append(x3)
 
+    # este loop calcula os erros e exclui os itens que não são mais utéis das listas
     for j in range(0, n_variaveis):
         if len(resultados) > 2*n_variaveis:
             del resultados[j]
