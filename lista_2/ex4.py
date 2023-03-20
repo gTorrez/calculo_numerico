@@ -125,6 +125,9 @@ def calculaGaussSeidel(x1, x2, x3, tol, n_iteracoes=10):
         if (max(erros) / max(resultados)) < tol:
             break
 
+    plt.title('Solução do sistema - Método de Gauss-Seidel')
+    plt.xlabel("Iterações")
+    plt.ylabel("Valor de x calculado")
     plt.xticks(range(len(x_axis)))
     plt.plot(x_axis, y_x1, label="x1")
     plt.plot(x_axis, y_x2, label="x2")
@@ -176,6 +179,9 @@ def calculaJacobi(x1, x2, x3, tol, n_iteracoes=10):
         if (max(erros) / max(resultados)) < tol:
             break
 
+    plt.title('Solução do sistema - Método de Jacobi')
+    plt.xlabel("Iterações")
+    plt.ylabel("Valor de x calculado")
     plt.xticks(range(len(x_axis)))
     plt.plot(x_axis, y_x1, label="x1")
     plt.plot(x_axis, y_x2, label="x2")
