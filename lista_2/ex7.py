@@ -1,0 +1,1 @@
+# Resolução disponível em: https://sites.google.com/view/calculo-numerico-2023-1/lista-2/exercício-7-2
